@@ -74,7 +74,8 @@ var daos = {
     saveUser(phone, password) {
         var newUser = new user({
             phone: phone,
-            password: password
+            password: password,
+            name: phone
         })
         return new Promise((resolve, reject) => {
             newUser.save(error => {
@@ -226,7 +227,9 @@ var daos = {
         })
         return new Promise((resolve, reject) => {
             newArticle.save(error => {
+                console.log(author)
                 if (error) {
+                    console.log(error)
                     reject({
                         status: 0,
                         message: '操作失败'

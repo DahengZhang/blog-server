@@ -36,7 +36,7 @@ router.post('/upload', function (req, res, next) {
         saveFile()
     } else {
         res.json({
-            status: 0,
+            status: 2,
             message: '未发现图片'
         })
         return
@@ -56,7 +56,7 @@ router.post('/upload', function (req, res, next) {
             })
         } else {
             res.json({
-                status: 0,
+                status: 1,
                 message: '上传完成, ' + errorPictureNumber + ' 张失败',
                 imagesUrl: imagesUrl
             })

@@ -22,7 +22,7 @@ router.get('/findById', function (req, res, next) {
         res.json({
             status: 1,
             message: '查询成功',
-            value: response.value
+            value: response.value[0]
         })
     }, response => {
         res.json({
@@ -33,9 +33,23 @@ router.get('/findById', function (req, res, next) {
 })
 
 router.post('/save', function (req, res, next) {
+    console.log(req.session.USERINFO)
+    // if (!req.session.USERINFO) {
+    //     res.json({
+    //         status: 0,
+    //         message: '用户身份认证失败'
+    //     })
+    //     return
+    // }
+    // var author = {
+    //     id: req.session.USERINFO._id,
+    //     name: req.session.USERINFO.name,
+    //     picture: req.session.USERINFO.picture
+    // }
     var author = {
         id: 0,
-        name: 'Admin'
+        name: 'Admin',
+        picture: ''
     }
     daos.saveArticle(req.body.title, author, req.body.content, req.body.labels, req.body.images).then(response => {
         res.json({

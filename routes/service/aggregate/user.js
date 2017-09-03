@@ -1,10 +1,7 @@
 var mongoose = require('mongoose')
 
 var user = mongoose.model('user', new mongoose.Schema({
-    name: {
-        type: String,
-        default: ''
-    },
+    name: String,
     phone: Number,
     picture: {
         type: String,

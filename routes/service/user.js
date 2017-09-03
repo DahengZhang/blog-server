@@ -5,9 +5,12 @@ var daos = require('./daos')
 router.get('/login', function (req, res, next) {
     daos.findUserByPhoneAndPassword(req.query.phone, req.query.password).then(response => {
         if (response.value.length > 0) {
+            req.session.USERINFO = response.value[0]
+            console.log(req.session.USERINFO)
             res.json({
                 status: 1,
-                message: '登陆成功'
+                message: '登陆成功',
+                value: response.value[0]
             })
         } else {
             res.json({
@@ -93,6 +96,14 @@ router.post('/supervise', function (req, res, next) {
             status: 0,
             message: '操作失败'
         })
+    })
+})
+
+router.post('/logout', function (req, res, next) {
+    delete req.session.USERINFO
+    res.json({
+        status: 1,
+        message: '登出成功'
     })
 })
 
