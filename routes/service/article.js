@@ -33,23 +33,24 @@ router.get('/findById', function (req, res, next) {
 })
 
 router.post('/save', function (req, res, next) {
-    console.log(req.session.USERINFO)
-    // if (!req.session.USERINFO) {
-    //     res.json({
-    //         status: 0,
-    //         message: '用户身份认证失败'
-    //     })
-    //     return
-    // }
-    // var author = {
-    //     id: req.session.USERINFO._id,
-    //     name: req.session.USERINFO.name,
-    //     picture: req.session.USERINFO.picture
-    // }
-    var author = {
-        id: 0,
-        name: 'Admin',
-        picture: ''
+    if (req.session.USERINFO) {
+        var author = {
+            id: req.session.USERINFO._id,
+            name: req.session.USERINFO.name,
+            picture: req.session.USERINFO.picture
+        }
+    } else if (req.query.author) {
+        var author = {
+            id: req.query.author._id,
+            name: req.query.author.name,
+            picture: req.query.author.picture
+        }
+    } else {
+        res.json({
+            status: 0,
+            message: '用户身份认证失败'
+        })
+        return
     }
     daos.saveArticle(req.body.title, author, req.body.content, req.body.labels, req.body.images).then(response => {
         res.json({
@@ -74,6 +75,58 @@ router.post('/remove', function (req, res, next) {
         res.json({
             status: 0,
             message: '删除失败'
+        })
+    })
+})
+
+router.get('/comment', function (req, res, next) {
+    daos.findAllComment(req.query.articleId).then(response => {
+        res.json({
+            status: 1,
+            message: '查询成功',
+            value: response.value
+        })
+    }, response => {
+        res.json({
+            status: 0,
+            message: '查询失败'
+        })
+    })
+})
+
+router.post('/comment', function (req, res, next) {
+    console.log(req.body)
+    if (req.session.USERINFO) {
+        var author = {
+            id: req.session.USERINFO._id,
+            name: req.session.USERINFO.name,
+            picture: req.session.USERINFO.picture
+        }
+    } else if (req.body.author) {
+        var author = {
+            id: req.body.author._id,
+            name: req.body.author.name,
+            picture: req.body.author.picture
+        }
+    } else {
+        res.json({
+            status: 0,
+            message: '用户身份认证失败'
+        })
+        return
+    }
+    daos.saveComment(req.body.articleId, author, req.body.content).then(response => {
+        return daos.findAllComment(req.body.articleId)
+    }).then(response => {
+        res.json({
+            status: 1,
+            message: '发布成功',
+            value: response.value
+        })
+    }).catch(error => {
+        res.json({
+            status: 0,
+            message: '发布失败'
         })
     })
 })

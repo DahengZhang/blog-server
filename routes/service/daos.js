@@ -1,6 +1,7 @@
 var user = require('./aggregate/user')
 var label = require('./aggregate/label')
 var article = require('./aggregate/article')
+var comment = require('./aggregate/comment')
 
 var daos = {
     findUserByPhoneAndPassword(phone, password) {
@@ -227,9 +228,7 @@ var daos = {
         })
         return new Promise((resolve, reject) => {
             newArticle.save(error => {
-                console.log(author)
                 if (error) {
-                    console.log(error)
                     reject({
                         status: 0,
                         message: '操作失败'
@@ -254,6 +253,61 @@ var daos = {
                 resolve({
                     status: 1,
                     message: '删除成功'
+                })
+            })
+        })
+    },
+    saveComment(article, author, content) {
+        console.log(article, author, content)
+        var newComment = new comment({
+            article: article,
+            author: author,
+            content: content
+        })
+        return new Promise((resolve, reject) => {
+            newComment.save(error => {
+                if (error) {
+                    reject({
+                        status: 0,
+                        message: '操作失败'
+                    })
+                }
+                resolve({
+                    status: 1,
+                    message: '保存成功'
+                })
+            })
+        })
+    },
+    removeComment(id) {
+        return new Promise((resolve, reject) => {
+            comment.remove({ _id: id }, error => {
+                if (error) {
+                    reject({
+                        status: 0,
+                        message: '操作失败'
+                    })
+                }
+                resolve({
+                    status: 1,
+                    message: '删除成功'
+                })
+            })
+        })
+    },
+    findAllComment(id) {
+        return new Promise((resolve, reject) => {
+            comment.find({article: id}, (error, value) => {
+                if (error) {
+                    reject({
+                        status: 0,
+                        message: '操作失败'
+                    })
+                }
+                resolve({
+                    status: 1,
+                    message: '查询成功',
+                    value: value
                 })
             })
         })
