@@ -40,6 +40,10 @@ var article = mongoose.model('article', new mongoose.Schema({
     type: Number,
     default: 0
   },
+  read: {
+    type: Number,
+    default: 0
+  },
   comment: {
     type: Number,
     default: 0

@@ -19,15 +19,30 @@ router.get('/find', function (req, res, next) {
 
 router.get('/findById', function (req, res, next) {
     daos.findArticleById(req.query.id).then(response => {
+        daos.readArticle(req.query.id)
         res.json({
             status: 1,
             message: '查询成功',
             value: response.value[0]
         })
-    }, response => {
+    }).catch(response => {
         res.json({
             status: 0,
             message: '查询失败'
+        })
+    })
+})
+
+router.post('/read', function (req, res, next) {
+    daos.readArticle(req.query.id).then(response => {
+        res.json({
+            status: 1,
+            message: '操作成功'
+        })
+    }).catch(response => {
+        res.json({
+            status: 0,
+            message: '操作失败'
         })
     })
 })
@@ -39,11 +54,11 @@ router.post('/save', function (req, res, next) {
             name: req.session.USERINFO.name,
             picture: req.session.USERINFO.picture
         }
-    } else if (req.query.author) {
+    } else if (req.body.author) {
         var author = {
-            id: req.query.author._id,
-            name: req.query.author.name,
-            picture: req.query.author.picture
+            id: req.body.author._id,
+            name: req.body.author.name,
+            picture: req.body.author.picture
         }
     } else {
         res.json({
@@ -95,7 +110,6 @@ router.get('/comment', function (req, res, next) {
 })
 
 router.post('/comment', function (req, res, next) {
-    console.log(req.body)
     if (req.session.USERINFO) {
         var author = {
             id: req.session.USERINFO._id,

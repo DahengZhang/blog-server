@@ -212,6 +212,22 @@ var daos = {
             })
         })
     },
+    readArticle(id) {
+        return new Promise((resolve, reject) => {
+            article.update({ _id: id }, { $inc: { read: 1 } }, error => {
+                if (error) {
+                    reject({
+                        status: 0,
+                        message: '操作失败'
+                    })
+                }
+                resolve({
+                    status: 1,
+                    message: '操作成功'
+                })
+            })
+        })
+    },
     saveArticle(title, author, content, labels, images) {
         if (images) {
             var image = images
@@ -257,10 +273,9 @@ var daos = {
             })
         })
     },
-    saveComment(article, author, content) {
-        console.log(article, author, content)
+    saveComment(articleId, author, content) {
         var newComment = new comment({
-            article: article,
+            article: articleId,
             author: author,
             content: content
         })
@@ -272,6 +287,7 @@ var daos = {
                         message: '操作失败'
                     })
                 }
+                article.update({ _id: articleId }, { $inc: { comment: 1 } }, error => {})
                 resolve({
                     status: 1,
                     message: '保存成功'
