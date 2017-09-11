@@ -21,7 +21,12 @@
 >   └ logs
 
 > 配置并写入服务中
+
 > mongod.exe --logpath E:\Mongodb\logs\mongodb.log --logappend --dbpath E:\Mongodb\data\db --directoryperdb --serviceName MongoDB -install
+
+> 启动服务器
+
+> net start MongoDB
 
 ## 功能
 
