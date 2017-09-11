@@ -13,8 +13,11 @@
 > MongoDB 下载地址： [GitHub](https://github.com/mongodb/mongo) [官方下载地址](https://www.mongodb.com/download-center?jmp=nav#community)
 
 > 我的数据库存放目录结构
+
 > E - Mongodb
+
 >   ├ data - db
+
 >   └ logs
 
 > 配置并写入服务中
