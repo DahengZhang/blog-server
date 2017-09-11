@@ -8,6 +8,8 @@
 
 > ECMAScript 6 + Nodejs + Express + MongoDB + Mongoose + Session
 
+> 下载到本地使用是，需要全局安装 [Supervisor](https://www.npmjs.com/package/supervisor)
+
 ## MongoDB安装与配置
 
 > MongoDB 下载地址： [GitHub](https://github.com/mongodb/mongo) [官方下载地址](https://www.mongodb.com/download-center?jmp=nav#community)
