@@ -6,7 +6,7 @@
 
 ## 技术栈
 
-> Nodejs + Express + MongoDB + Mongoose + Session
+> ECMAScript 6 + Nodejs + Express + MongoDB + Mongoose + Session
 
 ## MongoDB安装与配置
 
