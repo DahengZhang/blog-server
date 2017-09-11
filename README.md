@@ -4,7 +4,7 @@
 
 > 觉得有学习参考价值的请给个star，我会一直对此项目进行更新，把我知道的技术融入其中。
 
-##技术栈
+## 技术栈
 
 > Nodejs + Express + MongoDB + Mongoose + Session
 
