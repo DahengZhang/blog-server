@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "supervisor ./bin/www"
+    "server": "node ./bin/www",
+    "dev": "supervisor ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
