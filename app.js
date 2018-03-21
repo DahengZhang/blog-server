@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'uploads')))
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://icain:000000@localhost/blog', {
+mongoose.connect('mongodb://root:000000@localhost/blog', {
   useMongoClient: true
 })
 mongoose.connection.on('connected', function () {
